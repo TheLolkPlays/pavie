@@ -50,7 +50,7 @@ module.exports = class {
         }
       })
 
-      return this.user
+      return this.instance
     } else {
       throw new Error("Signin failed !")
     }
