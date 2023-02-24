@@ -1,3 +1,4 @@
+require("dotenv").config()
 const uuid = require("uuid")
 const axios = require("axios")
 const querystring = require("querystring")
@@ -37,14 +38,14 @@ module.exports = class {
       this.user = response.data
 
       const resources = await this.getResources()
-      const resource = resources.filter(res => res.name === `Plex Server`)[0]
-      const connection = resource.connections.filter(con => con.local)[0]
+      const resource = resources.filter(res => res.name === process.env.serverName)[0]
+      const connection = resource.connections.filter(con => !con.local)[0]
 
       this.instance = axios.create({
         baseURL: `${connection.protocol}://${connection.address}:${connection.port}`,
         headers: {
           "X-Plex-Client-Identifier": this.clientId,
-          "X-Plex-Token": this.getToken()
+          "X-Plex-Token": process.env.token
         }
       })
 
