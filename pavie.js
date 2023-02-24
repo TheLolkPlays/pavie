@@ -9,7 +9,7 @@ module.exports = class {
     this.username = settings.username
     this.password = settings.password
     this.serverName = settings.serverName
-    this.serverToken = setting.serverToken
+    this.serverToken = settings.serverToken
     this.clientId = uuid.v4()
   }
 
