@@ -8,6 +8,8 @@ module.exports = class {
   constructor(settings) {
     this.username = settings.username
     this.password = settings.password
+    this.serverName = settings.serverName
+    this.serverToken = setting.serverToken
     this.clientId = uuid.v4()
   }
 
@@ -38,14 +40,14 @@ module.exports = class {
       this.user = response.data
 
       const resources = await this.getResources()
-      const resource = resources.filter(res => res.name === process.env.serverName)[0]
+      const resource = resources.filter(res => res.name === this.serverName)[0]
       const connection = resource.connections.filter(con => !con.local)[0]
 
       this.instance = axios.create({
         baseURL: `${connection.protocol}://${connection.address}:${connection.port}`,
         headers: {
           "X-Plex-Client-Identifier": this.clientId,
-          "X-Plex-Token": process.env.token
+          "X-Plex-Token": this.serverToken
         }
       })
 
