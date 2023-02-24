@@ -1,4 +1,3 @@
-require("dotenv").config()
 const uuid = require("uuid")
 const axios = require("axios")
 const querystring = require("querystring")
